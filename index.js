@@ -4,24 +4,35 @@ const { faker } = require('@faker-js/faker');
 faker.locale = 'pt_BR';
 faker.seed(12);
 
-customers = [];
+let customers = [];
+
+let file = fs.createWriteStream('./output.txt');
+file.on('error', function (err) { console.log(err) });
 
 for (let i = 0; i < 1000; i++) {
     name = faker.name.findName(),
         genre = faker.name.gender(true),
         birthday = faker.date.between('1910-01-01', '2006-12-31'),
-        lastPurchasedDate = faker.date.between(birthday, '2022-06-05'),
+        lastPurchaseDate = faker.date.between(birthday, '2022-06-05'),
         countPurchased = faker.random.numeric(2) - 10
     customer = {
         name,
         genre,
         birthday,
-        lastPurchasedDate,
+        lastPurchaseDate,
         countPurchased
     }
+
+    file.write(
+        name + '\n' +
+        genre + '\n' +
+        birthday + '\n' +
+        lastPurchaseDate + '\n' +
+        countPurchased + '\n' +
+        '--------------------------\n\n');
     customers.push(customer);
 }
-
+file.end();
 
 function Q1(char, customers) {
     return customers.filter(customer => customer.name.startsWith(char))
@@ -50,21 +61,17 @@ function Q5(customers) {
 /* console.log(Q5(customers)); */
 
 function Q6(customers) {
-    customers.map((customer) => {
-        console.log(customer.name.substring(0, customer.name.indexOf(' ')))
-    })
+    return customers.map(customer => customer.name.substring(0, customer.name.indexOf(' ')))
 }
 
-/* Q6(customers) */
+/* console.log(Q6(customers)) */
 
 function Q7(customers, char) {
     custs = customers.filter(customer => customer.name.startsWith(char))
-    custs.map((customer) => {
-        console.log(customer.name.substring(0, customer.name.indexOf(' ')))
-    })
+    return custs.map(customer => customer.name.substring(0, customer.name.indexOf(' ')))
 }
 
-/* Q7(customers, 'V'); */
+/* console.log(Q7(customers, 'V')); */
 
 function Q8(customers) {
     return customers.filter((customer) => customer.birthday < new Date(2004, 06, 06))
@@ -82,10 +89,10 @@ function Q10(customers) {
     return customers.reduce((sum, customer) => sum + customer.countPurchased, 0)
 }
 
-console.log(Q10(customers));
+/* console.log(Q10(customers)); */
 
 function Q11(customers) {
-    return customers.filter((customer) => customer.lastPurchasedDate < new Date(2021, 06, 06));
+    return customers.filter((customer) => customer.lastPurchaseDate < new Date(2021, 06, 06));
 }
 
 /* console.log(Q11(customers)); */
@@ -117,7 +124,3 @@ Q13(customers,
 
 /* console.log(customers) */
 
-/* require('fs').writeFile('./output.json',
-    JSON.stringify(customers),
-    (err) => console.error(err)
-); */
