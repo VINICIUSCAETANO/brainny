@@ -10,7 +10,7 @@ for (let i = 0; i < 1000; i++) {
     name = faker.name.findName(),
         genre = faker.name.gender(true),
         birthday = faker.date.between('1910-01-01', '2006-12-31'),
-        lastPurchasedDate = faker.date.between(birthday, '2022-12-31'),
+        lastPurchasedDate = faker.date.between(birthday, '2022-06-05'),
         countPurchased = faker.random.numeric(2) - 10
     customer = {
         name,
@@ -64,7 +64,7 @@ function Q7(customers, char) {
     })
 }
 
-/* Q7(customers, 'A'); */
+/* Q7(customers, 'V'); */
 
 function Q8(customers) {
     return customers.filter((customer) => customer.birthday < new Date(2004, 06, 06))
@@ -76,13 +76,13 @@ function Q9(customers, txt) {
     return customers.find((customer) => customer.name === txt)
 }
 
-/* console.log(Q9(customers, 'Feliciano Moreira')); */
+/* console.log(Q9(customers, 'Angelo Luz')); */
 
 function Q10(customers) {
     return customers.reduce((sum, customer) => sum + customer.countPurchased, 0)
 }
 
-/* console.log(Q10(customers)); */
+console.log(Q10(customers));
 
 function Q11(customers) {
     return customers.filter((customer) => customer.lastPurchasedDate < new Date(2021, 06, 06));
@@ -107,13 +107,15 @@ function Q13(customers, name, genre, birthday, lastPurchaseDate, countPurchased)
     customers.unshift(obj)
 }
 
-/* Q13(customers,
+Q13(customers,
     "Vinícius Caetano",
     'Masculino',
     new Date(1985, 02, 06),
     new Date(2020, 03, 03),
     12)
-console.log() */
+
+
+/* console.log(customers) */
 
 /* require('fs').writeFile('./output.json',
     JSON.stringify(customers),
