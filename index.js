@@ -6,7 +6,7 @@ faker.seed(12);
 
 let customers = [];
 
-let file = fs.createWriteStream('./output.txt');
+const file = fs.createWriteStream('./output.txt');
 file.on('error', function (err) { console.log(err) });
 
 for (let i = 0; i < 1000; i++) {
